@@ -1,23 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import axios from "axios";
+import UserForm from "./Form";
+
+const userApi = "https://reqres.in/api/users_";
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [serverError, setServerError] = useState("");
+
+  const postUser = (formValues, actions) => {
+    const userToPost = {
+      name: formValues.name,
+      email: formValues.email,
+      password: formValues.password
+    };
+    axios
+      .post(userApi, userToPost)
+      .then(response => {
+        setUsers(users.concat(response.data));
+        actions.resetForm();
+      })
+      .catch(error => {
+        setServerError(error.message);
+      });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {serverError}
+        <UserForm onSubmit={postUser} />
+        {
+        users.length
+          ? users.map(user => (
+            <div key={user.id}>Name: {user.name} Email: {user.email} Password: {user.password} </div>
+          ))
+          : null
+      }
       </header>
     </div>
   );
