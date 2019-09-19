@@ -28,14 +28,14 @@ function UserForm({ onSubmit }) {
             <div>
               <label>
                 Password
-                <Field name="password" type="password"  />
+                <Field name="password" type="password" />
                 <ErrorMessage name="password" component="div" />
               </label>
             </div>
             <div>
               <label>
                 Terms of Service
-                <Field name="terms" type="checkbox"  />
+                <Field name="terms" type="checkbox" />
                 <ErrorMessage name="terms" component="div" />
               </label>
             </div>

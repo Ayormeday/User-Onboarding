@@ -31,13 +31,13 @@ function App() {
       <header className="App-header">
         {serverError}
         <UserForm onSubmit={postUser} />
-        {
-        users.length
+        {users.length
           ? users.map(user => (
-            <div key={user.id}>Name: {user.name} Email: {user.email} Password: {user.password} </div>
-          ))
-          : null
-      }
+              <div key={user.id}>
+                Name: {user.name} Email: {user.email} Password: {user.password}{" "}
+              </div>
+            ))
+          : null}
       </header>
     </div>
   );
